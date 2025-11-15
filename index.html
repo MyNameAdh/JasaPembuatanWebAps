@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPro UMKM - Jasa Pembuatan Website Profesional</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --accent: #ff6b6b;
+            --accent-hover: #ff5252;
+            --bg-light: #fafafa;
+            --bg-dark: #0f172a;
+            --text-light: #333;
+            --text-light-sec: #666;
+            --text-dark: #e2e8f0;
+            --text-dark-sec: #cbd5e1;
+            --card-light: #fff;
+            --card-dark: #1e293b;
+            --border-light: #ddd;
+            --border-dark: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            animation: scaleIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-mode nav {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.7rem;
+            font-weight: bold;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&w=1600')
+                        center/cover no-repeat;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            color: #fff;
+            margin-top: 60px;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1;
+        }
+
+        .hero::after {
+            display: none;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 700px;
+            z-index: 2;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff5252, #ff6b6b);
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .cta-button {
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        /* SECTION */
+        section {
+            padding: 5rem 2rem;
+            transition: background-color 0.4s ease;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.6rem;
+            margin-bottom: 3rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark-mode section h2 {
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* FEATURES */
+        .features {
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .features {
+            background: var(--bg-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--card-light);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .feature-card {
+            background: var(--card-dark);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #ff6b6b);
+            transition: left 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            flex-grow: 1;
+            line-height: 1.6;
+            color: var(--text-light-sec);
+        }
+
+        body.dark-mode .feature-card p {
+            color: var(--text-dark-sec);
+        }
+
+        /* PRICING */
+        .pricing {
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .pricing {
+            background: var(--bg-dark);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--card-light);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--border-light);
+            transition: 0.3s;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body.dark-mode .pricing-card {
+            background: var(--card-dark);
+            border-color: var(--border-dark);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #ff6b6b);
+            border-radius: 20px 20px 0 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode .pricing-card:hover {
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
+        }
+
+        .pricing-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .pricing-card h3 {
+            color: var(--text-dark);
+        }
+
+        .pricing-card .price {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-light-sec);
+        }
+
+        body.dark-mode .pricing-features li {
+            border-color: var(--border-dark);
+            color: var(--text-dark-sec);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* TESTIMONI */
+        .testimonials {
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .testimonials {
+            background: var(--bg-dark);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--card-light);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+            border-left: 5px solid transparent;
+        }
+
+        body.dark-mode .testimonial-card {
+            background: var(--card-dark);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            border-left-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
+        }
+
+        body.dark-mode .testimonial-card:hover {
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .testimonial-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: var(--text-light-sec);
+        }
+
+        body.dark-mode .testimonial-card p {
+            color: var(--text-dark-sec);
+        }
+
+        .testimonial-card strong {
+            color: var(--primary);
+        }
+
+        /* PORTFOLIO */
+        .portfolio {
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .portfolio {
+            background: var(--bg-dark);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: var(--card-light);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        body.dark-mode .portfolio-card {
+            background: var(--card-dark);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        body.dark-mode .portfolio-card:hover {
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.25);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(102, 126, 234, 0.1);
+            transition: 0.3s;
+        }
+
+        .portfolio-card:hover .portfolio-image::after {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .portfolio-card h3 {
+            padding: 1.5rem 1.5rem 0.5rem;
+            color: var(--text-light);
+            font-size: 1.3rem;
+        }
+
+        body.dark-mode .portfolio-card h3 {
+            color: var(--text-dark);
+        }
+
+        .portfolio-card p {
+            padding: 0.5rem 1.5rem;
+            color: var(--text-light-sec);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        body.dark-mode .portfolio-card p {
+            color: var(--text-dark-sec);
+        }
+
+        .portfolio-tags {
+            padding: 1rem 1.5rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(255, 107, 107, 0.1));
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        body.dark-mode .tag {
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+
+        .portfolio-link {
+            padding: 1rem 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            border-top: 1px solid var(--border-light);
+        }
+
+        body.dark-mode .portfolio-link {
+            border-top-color: var(--border-dark);
+        }
+
+        .portfolio-card:hover .portfolio-link {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            nav .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                gap: 1rem;
+                width: 100%;
+            }
+
+            nav ul li a {
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                margin-top: 120px;
+                height: auto;
+                min-height: 400px;
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .features-grid {
+                gap: 1.5rem;
+            }
+
+            .pricing-grid {
+                gap: 1.5rem;
+            }
+
+            .testimonials-grid {
+                gap: 1.5rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding: 2.5rem 1rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.9rem;
+                margin-top: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-card {
+                padding: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .pricing-card img,
+            .feature-card img,
+            .testimonial-img {
+                height: auto;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 400px) {
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.3rem;
+            }
+
+            .pricing-card .price {
+                font-size: 1.8rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <a class="logo">WebApsPro UMKM</a>
+            <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                <ul>
+                    <li><a href="#fitur" onclick="smoothScroll(event, '#fitur')">Fitur</a></li>
+                    <li><a href="#paket" onclick="smoothScroll(event, '#paket')">Paket</a></li>
+                    <li><a href="#paket-apk" onclick="smoothScroll(event, '#paket-apk')">Jasa APK</a></li>
+                    <li><a href="#testimoni" onclick="smoothScroll(event, '#testimoni')">Testimoni</a></li>
+                </ul>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tingkatkan Bisnis Anda Dengan Website Profesional</h1>
+            <p>Solusi pembuatan website UMKM yang modern, cepat, dan menarik perhatian pelanggan.</p>
+            <button class="cta-button" onclick="document.getElementById('paket').scrollIntoView({behavior:'smooth'})">Lihat Paket</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="fitur" class="features">
+        <h2>Mengapa Memilih Kami?</h2>
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&w=800" alt="Desain Modern">
+                <h3>Desain Modern</h3>
+                <p>Tampilan website yang elegan dan menarik perhatian pelanggan.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&w=800" alt="Responsif">
+                <h3>Responsif</h3>
+                <p>Website nyaman dilihat di HP, tablet, hingga komputer.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&w=800" alt="SEO Friendly">
+                <h3>SEO Friendly</h3>
+                <p>Mudah ditemukan di Google untuk meningkatkan penjualan.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&w=800" alt="Support 24/7">
+                <h3>Support 24/7</h3>
+                <p>Kapan pun Anda butuh bantuan, kami siap membantu.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="paket" class="pricing">
+        <h2>Paket Harga Website</h2>
+
+        <div class="pricing-grid">
+
+            <div class="pricing-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS93LfeV-jcgiOmgUBK5wOPTAjK-RwzqMoeIw&s" alt="Paket Starter">
+                <h3>Starter</h3>
+                <div class="price">Rp 2.500.000</div>
+                <ul class="pricing-features">
+                    <li>✓ 5 Halaman</li>
+                    <li>✓ Domain & Hosting 1 Tahun</li>
+                    <li>✓ SSL Certificate</li>
+                    <li>✓ Mobile Responsive</li>
+                </ul>
+                <button class="cta-button" onclick="orderPackage('Starter')">Pesan Sekarang</button>
+            </div>
+
+            <div class="pricing-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs7vg-OljxnOAgyQexs1N27xnlptvpwKX8Zg&s" alt="Paket Professional">
+                <h3>Professional</h3>
+                <div class="price">Rp 5.000.000</div>
+                <ul class="pricing-features">
+                    <li>✓ 15 Halaman</li>
+                    <li>✓ SEO Optimization</li>
+                    <li>✓ Blog + Gallery</li>
+                    <li>✓ Support 6 Bulan</li>
+                </ul>
+                <button class="cta-button" onclick="orderPackage('Professional')">Pesan Sekarang</button>
+            </div>
+
+            <div class="pricing-card">
+                <img src="https://bluecreative.co.id/wp-content/uploads/2018/02/ResponsiveDesign-copy.png" alt="Paket Enterprise">
+                <h3>Enterprise</h3>
+                <div class="price">Rp 10.000.000+</div>
+                <ul class="pricing-features">
+                    <li>✓ Unlimited Halaman</li>
+                    <li>✓ Premium Hosting</li>
+                    <li>✓ Payment Gateway</li>
+                    <li>✓ Support 1 Tahun</li>
+                </ul>
+                <button class="cta-button" onclick="orderPackage('Enterprise')">Hubungi Kami</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PAKET APK -->
+    <section id="paket-apk" class="pricing">
+        <h2>Jasa Pembuatan Aplikasi Mobile (APK)</h2>
+
+        <div class="pricing-grid">
+
+            <div class="pricing-card">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&w=800" alt="Paket APK Basic">
+                <h3>APK Basic</h3>
+                <div class="price">Rp 5.000.000</div>
+                <ul class="pricing-features">
+                    <li>✓ Android App (APK)</li>
+                    <li>✓ 5-7 Screen/Halaman</li>
+                    <li>✓ Push Notification</li>
+                    <li>✓ Admin Panel Web</li>
+                    <li>✓ Support 3 Bulan</li>
+                </ul>
+                <button class="cta-button" onclick="orderAPK('APK Basic')">Pesan Sekarang</button>
+            </div>
+
+            <div class="pricing-card">
+                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&w=800" alt="Paket APK Pro">
+                <h3>APK Pro</h3>
+                <div class="price">Rp 10.000.000</div>
+                <ul class="pricing-features">
+                    <li>✓ Android + iOS App</li>
+                    <li>✓ 10-15 Screen</li>
+                    <li>✓ Payment Gateway</li>
+                    <li>✓ GPS & Maps Integration</li>
+                    <li>✓ Chat Feature</li>
+                    <li>✓ Support 6 Bulan</li>
+                </ul>
+                <button class="cta-button" onclick="orderAPK('APK Pro')">Pesan Sekarang</button>
+            </div>
+
+            <div class="pricing-card">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&w=800" alt="Paket APK Enterprise">
+                <h3>APK Enterprise</h3>
+                <div class="price">Rp 20.000.000+</div>
+                <ul class="pricing-features">
+                    <li>✓ Full Custom Development</li>
+                    <li>✓ Unlimited Features</li>
+                    <li>✓ Backend API & Database</li>
+                    <li>✓ Publish ke Play Store</li>
+                    <li>✓ Multi-language Support</li>
+                    <li>✓ Support 1 Tahun</li>
+                </ul>
+                <button class="cta-button" onclick="orderAPK('APK Enterprise')">Hubungi Kami</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section id="testimoni" class="testimonials">
+        <h2>Apa Kata Klien Kami</h2>
+        <div class="testimonials-grid">
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?auto=format&w=800" class="testimonial-img" alt="Adi Suryanto">
+                <p>"Penjualan saya naik drastis! WebPro luar biasa cepat dan rapi."</p>
+                <strong>- Adi Suryanto</strong>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&w=800" class="testimonial-img" alt="Siti Nurhaliza">
+                <p>"Website mudah saya gunakan, pelanggan pun jadi lebih cepat order."</p>
+                <strong>- Siti Nurhaliza</strong>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&w=800" class="testimonial-img" alt="Rudi Wijaya">
+                <p>"Design clean, profesional, dan supportnya ramah banget!"</p>
+                <strong>- Rudi Wijaya</strong>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio">
+        <h2>Portfolio Website Kami</h2>
+        <div class="portfolio-grid">
+
+            <div class="portfolio-card" onclick="window.open('restoran/index.html', '_blank')" style="cursor: pointer;">
+                <div class="portfolio-image" style="background: url('https://media-cdn.tripadvisor.com/media/photo-s/04/a3/b1/c7/profil.jpg') center/cover no-repeat;"></div>
+                <h3>🍴 Resto Lezat</h3>
+                <p>Website restoran modern dengan menu interaktif, booking meja online, galeri foto hidangan, dan integrasi WhatsApp untuk order.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">Booking Menu</span>
+                </div>
+                <div class="portfolio-link">Kunjungi Website →</div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 WebApsPro UMKM — Solusi Website dan Aplikasi Terbaik untuk Bisnis Anda</p>
+    </footer>
+
+    <script>
+        // WHATSAPP ORDER FUNCTION
+        function orderPackage(packageName) {
+            const packages = {
+                'Starter': {
+                    price: 'Rp 2.500.000',
+                    features: '5 Halaman, Domain & Hosting 1 Tahun, SSL Certificate, Mobile Responsive'
+                },
+                'Professional': {
+                    price: 'Rp 5.000.000',
+                    features: '15 Halaman, SEO Optimization, Blog + Gallery, Support 6 Bulan'
+                },
+                'Enterprise': {
+                    price: 'Rp 10.000.000+',
+                    features: 'Unlimited Halaman, Premium Hosting, Payment Gateway, Support 1 Tahun'
+                }
+            };
+
+            const pkg = packages[packageName];
+            const message = `Halo WebPro UMKM! 👋
+
+Saya tertarik untuk memesan paket *${packageName}*
+
+📦 Detail Paket:
+💰 Harga: ${pkg.price}
+✨ Fitur: ${pkg.features}
+
+Mohon informasi lebih lanjut mengenai:
+- Proses pemesanan
+- Waktu pengerjaan
+- Metode pembayaran
+
+Terima kasih!`;
+
+            const whatsappNumber = '6285143095259'; // Ganti dengan nomor WA Anda
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        // WHATSAPP ORDER APK FUNCTION
+        function orderAPK(packageName) {
+            const packages = {
+                'APK Basic': {
+                    price: 'Rp 5.000.000',
+                    features: 'Android App (APK), 5-7 Screen/Halaman, Push Notification, Admin Panel Web, Support 3 Bulan'
+                },
+                'APK Pro': {
+                    price: 'Rp 10.000.000',
+                    features: 'Android + iOS App, 10-15 Screen, Payment Gateway, GPS & Maps Integration, Chat Feature, Support 6 Bulan'
+                },
+                'APK Enterprise': {
+                    price: 'Rp 20.000.000+',
+                    features: 'Full Custom Development, Unlimited Features, Backend API & Database, Publish ke Play Store, Multi-language Support, Support 1 Tahun'
+                }
+            };
+
+            const pkg = packages[packageName];
+            const message = `Halo WebPro UMKM! 👋
+
+Saya tertarik untuk memesan paket *${packageName}*
+
+📱 Detail Paket Aplikasi Mobile:
+💰 Harga: ${pkg.price}
+✨ Fitur: ${pkg.features}
+
+Mohon informasi lebih lanjut mengenai:
+- Proses pembuatan aplikasi
+- Waktu pengerjaan
+- Metode pembayaran
+- Platform yang didukung
+
+Terima kasih!`;
+
+            const whatsappNumber = '6285143095259'; // Ganti dengan nomor WA Anda
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+        }
+
+        // SMOOTH SCROLL FUNCTION
+        function smoothScroll(event, targetId) {
+            event.preventDefault();
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // SCROLL ANIMATIONS
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.feature-card, .pricing-card, .testimonial-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.animation = 'fadeInUp 0.8s ease forwards';
+                        }, index * 100);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const featureGrid = document.querySelector('.features-grid');
+        const pricingGrid = document.querySelector('.pricing-grid');
+        const testimonialGrid = document.querySelector('.testimonials-grid');
+        const portfolioGrid = document.querySelector('.portfolio-grid');
+
+        if (featureGrid) observer.observe(featureGrid);
+        if (pricingGrid) observer.observe(pricingGrid);
+        if (testimonialGrid) observer.observe(testimonialGrid);
+        if (portfolioGrid) observer.observe(portfolioGrid);
+
+        // NAV SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // DARK MODE TOGGLE
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.querySelector('.theme-toggle');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                btn.textContent = '☀️ Light Mode';
+            } else {
+                localStorage.setItem('theme', 'light');
+                btn.textContent = '🌙 Dark Mode';
+            }
+        }
+
+        // LOAD SAVED THEME
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const btn = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                btn.textContent = '☀️ Light Mode';
+            }
+        });
+    </script>
+
+</body>
+</html>
