@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resto Lezat - Menu Makanan & Minuman</title>
+
     <style>
         * {
             margin: 0;
@@ -12,8 +13,8 @@
         }
 
         :root {
-            --primary: #d4a574;
-            --primary-dark: #b8915f;
+            --primary: #667eea;
+            --primary-dark: #5568d3;
             --accent: #ff6b6b;
             --accent-hover: #ff5252;
             --bg-light: #fafafa;
@@ -41,14 +42,56 @@
             color: var(--text-dark);
         }
 
+        /* SCROLL ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            animation: scaleIn 0.8s ease forwards;
+        }
+
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
@@ -62,7 +105,7 @@
             top: 0;
             z-index: 999;
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         body.dark-mode nav {
@@ -90,7 +133,7 @@
             font-size: 1.7rem;
             font-weight: bold;
             text-decoration: none;
-            background: linear-gradient(135deg, #d4a574, #ff8c42);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,7 +143,7 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            gap: 5px;
             z-index: 1000;
         }
 
@@ -108,13 +151,12 @@
             width: 25px;
             height: 3px;
             background: #fff;
-            margin: 3px 0;
-            transition: 0.3s;
             border-radius: 3px;
+            transition: 0.3s;
         }
 
         .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
+            transform: rotate(45deg) translate(8px, 8px);
         }
 
         .hamburger.active span:nth-child(2) {
@@ -122,7 +164,7 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         .nav-menu {
@@ -154,7 +196,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #d4a574, #ff6b6b);
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
             transition: width 0.3s ease;
         }
 
@@ -184,7 +226,8 @@
 
         /* HERO SECTION */
         .hero {
-            background: url('https://media-cdn.tripadvisor.com/media/photo-s/04/a3/b1/c7/profil.jpg') center/cover no-repeat;
+            background: url('https://media-cdn.tripadvisor.com/media/photo-s/04/a3/b1/c7/profil.jpg')
+                        center/cover no-repeat;
             height: 90vh;
             display: flex;
             align-items: center;
@@ -207,6 +250,10 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.55);
             z-index: 1;
+        }
+
+        .hero::after {
+            display: none;
         }
 
         .hero-content {
@@ -246,9 +293,33 @@
             overflow: hidden;
         }
 
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff5252, #ff6b6b);
+            transition: 0.3s;
+            z-index: -1;
+        }
+
         .cta-button:hover {
             transform: translateY(-4px);
             box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .cta-button {
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
         }
 
         /* SECTION */
@@ -262,10 +333,43 @@
             font-size: 2.6rem;
             margin-bottom: 3rem;
             line-height: 1.2;
-            background: linear-gradient(135deg, #d4a574, #ff6b6b);
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        body.dark-mode section h2 {
+            background: linear-gradient(135deg, #667eea, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        body.dark-mode .about {
+            background: var(--bg-dark);
+        }
+
+        .about-content {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light-sec);
+        }
+
+        body.dark-mode .about-content p {
+            color: var(--text-dark-sec);
         }
 
         /* MENU */
@@ -279,39 +383,58 @@
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .menu-card {
             background: var(--card-light);
-            border-radius: 15px;
+            border-radius: 20px;
+            padding: 0;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: 0.3s;
             border: 2px solid transparent;
             display: flex;
             flex-direction: column;
-            height: 100%;
         }
 
         body.dark-mode .menu-card {
             background: var(--card-dark);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border-color: rgba(212, 165, 116, 0.1);
+            border-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #ff6b6b);
+            transition: left 0.3s ease;
+        }
+
+        .menu-card:hover::before {
+            left: 0;
         }
 
         .menu-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 45px rgba(212, 165, 116, 0.2);
-            border-color: rgba(212, 165, 116, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode .menu-card:hover {
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
         }
 
         .menu-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             position: relative;
             overflow: hidden;
@@ -325,7 +448,7 @@
         }
 
         .menu-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
             color: var(--text-light);
         }
@@ -336,8 +459,8 @@
 
         .menu-card p {
             color: var(--text-light-sec);
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin-bottom: 1rem;
             flex-grow: 1;
         }
@@ -348,20 +471,20 @@
 
         .menu-category {
             display: inline-block;
-            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(255, 107, 107, 0.1));
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(255, 107, 107, 0.1));
             color: var(--primary);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            border: 1px solid rgba(212, 165, 116, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.3);
             margin-bottom: 0.8rem;
             width: fit-content;
         }
 
         .menu-price {
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #d4a574, #ff8c42);
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -372,7 +495,7 @@
         .btn-pesan {
             width: 100%;
             padding: 0.8rem 1rem;
-            background: linear-gradient(135deg, #d4a574, #ff8c42);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -384,7 +507,7 @@
 
         .btn-pesan:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
         }
 
         /* CATEGORY TABS */
@@ -416,35 +539,9 @@
             transform: translateY(-2px);
         }
 
-        /* ABOUT SECTION */
-        .about {
-            background: var(--bg-light);
-            text-align: center;
-        }
-
-        body.dark-mode .about {
-            background: var(--bg-dark);
-        }
-
-        .about-content {
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        .about-content p {
-            margin-bottom: 1.5rem;
-            color: var(--text-light-sec);
-        }
-
-        body.dark-mode .about-content p {
-            color: var(--text-dark-sec);
-        }
-
         /* CONTACT SECTION */
         .contact {
-            background: linear-gradient(135deg, #d4a574, #ff8c42);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
             text-align: center;
         }
@@ -484,53 +581,78 @@
         }
 
         footer {
-            background: linear-gradient(135deg, #d4a574, #b8915f);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: #fff;
             padding: 2rem;
             text-align: center;
             margin-top: 2rem;
         }
 
+        footer p {
+            line-height: 1.6;
+        }
+
         /* RESPONSIVE */
         @media(max-width: 768px) {
             .hamburger {
                 display: flex;
-                position: absolute;
-                right: 2rem;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            nav .container {
-                position: relative;
             }
 
             .nav-menu {
-                display: none;
+                position: fixed;
+                left: -100%;
+                top: 70px;
                 flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
                 width: 100%;
-                margin-top: 1rem;
-                background: rgba(0, 0, 0, 0.9);
-                padding: 1.5rem;
-                border-radius: 8px;
-                position: absolute;
-                top: 60px;
-                right: 1rem;
-                left: 1rem;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 0;
+            }
+
+            body.dark-mode .nav-menu {
+                background: rgba(15, 23, 42, 0.98);
             }
 
             .nav-menu.active {
-                display: flex;
+                left: 0;
             }
 
             nav ul {
                 flex-direction: column;
+                gap: 0;
                 width: 100%;
-                gap: 1rem;
+            }
+
+            nav ul li {
+                width: 100%;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                font-size: 1.1rem;
+                display: block;
+                padding: 0.5rem 0;
+            }
+
+            .theme-toggle {
+                width: 80%;
+                margin: 1rem auto 0;
+            }
+
+            nav .container {
+                gap: 0;
             }
 
             .hero {
-                margin-top: 80px;
+                margin-top: 70px;
                 height: auto;
                 min-height: 400px;
                 padding: 3rem 1.5rem;
@@ -538,6 +660,10 @@
 
             .hero-content h1 {
                 font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
             }
 
             section {
@@ -551,25 +677,37 @@
 
             .menu-grid {
                 gap: 1.5rem;
-                grid-template-columns: 1fr;
             }
 
             .contact-info {
                 gap: 1rem;
             }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
         }
 
         @media(max-width: 600px) {
             .logo {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
 
-            .hamburger {
-                right: 1rem;
+            nav {
+                padding: 1rem;
+            }
+
+            .hero {
+                margin-top: 70px;
             }
 
             .hero-content h1 {
                 font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 0.95rem;
             }
 
             section {
@@ -593,22 +731,54 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
             }
+
+            .cta-button {
+                padding: 0.7rem 1.3rem;
+                font-size: 0.9rem;
+                margin-top: 1.5rem;
+            }
+        }
+
+        @media(max-width: 400px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.3rem;
+            }
+
+            .menu-price {
+                font-size: 1.3rem;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
+
     <!-- NAV -->
     <nav>
         <div class="container">
             <a class="logo">🍴 Resto Lezat</a>
-            
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-
             <div class="nav-menu">
                 <ul>
                     <li><a href="#menu" onclick="smoothScroll(event, '#menu')">Menu</a></li>
@@ -651,9 +821,9 @@
         </div>
 
         <div class="menu-grid" id="menuGrid">
-            <!-- SNACK ITEMS -->
+            <!-- SNACK -->
             <div class="menu-card" data-category="snack">
-                <img src="https://images.unsplash.com/photo-1536431311894-8fc7cb867dd3?w=400&h=300&fit=crop" alt="Pisang Goreng" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1585238341710-4913d2eae34e?auto=format&w=800" alt="Pisang Goreng" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Snack</span>
                     <h3>Pisang Goreng Madu</h3>
@@ -664,7 +834,7 @@
             </div>
 
             <div class="menu-card" data-category="snack">
-                <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd19c74?w=400&h=300&fit=crop" alt="Tahu Goreng" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd87352?auto=format&w=800" alt="Tahu Goreng" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Snack</span>
                     <h3>Tahu Goreng Pedas</h3>
@@ -675,7 +845,7 @@
             </div>
 
             <div class="menu-card" data-category="snack">
-                <img src="https://images.unsplash.com/photo-1585238341710-4edd9b0c40d8?w=400&h=300&fit=crop" alt="Perkedel" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1626274646042-cc71e6fffed4?auto=format&w=800" alt="Perkedel" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Snack</span>
                     <h3>Perkedel Kentang</h3>
@@ -686,7 +856,18 @@
             </div>
 
             <div class="menu-card" data-category="snack">
-                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cfd330?w=400&h=300&fit=crop" alt="Lumpia" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1585238341710-4913d2eae34e?auto=format&w=800" alt="Cireng" class="menu-image">
+                <div class="menu-content">
+                    <span class="menu-category">Snack</span>
+                    <h3>Cireng Spesial</h3>
+                    <p>Cireng kenyal dengan isian teri dan dipanaskan sampai golden</p>
+                    <div class="menu-price">Rp 21.000</div>
+                    <button class="btn-pesan" onclick="orderViaWhatsApp('Cireng Spesial', 'Rp 21.000', 'Cireng kenyal dengan isian teri dan dipanaskan sampai golden')">Pesan</button>
+                </div>
+            </div>
+
+            <div class="menu-card" data-category="snack">
+                <img src="https://images.unsplash.com/photo-1562373372-e5fda70456fa?auto=format&w=800" alt="Lumpia" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Snack</span>
                     <h3>Lumpia Goreng</h3>
@@ -696,9 +877,20 @@
                 </div>
             </div>
 
-            <!-- MAKANAN ITEMS -->
+            <div class="menu-card" data-category="snack">
+                <img src="https://images.unsplash.com/photo-1585238341710-4913d2eae34e?auto=format&w=800" alt="Tempe Goreng" class="menu-image">
+                <div class="menu-content">
+                    <span class="menu-category">Snack</span>
+                    <h3>Tempe Goreng Kripik</h3>
+                    <p>Tempe goreng dengan bumbu kripik pedas dan gurih</p>
+                    <div class="menu-price">Rp 17.000</div>
+                    <button class="btn-pesan" onclick="orderViaWhatsApp('Tempe Goreng Kripik', 'Rp 17.000', 'Tempe goreng dengan bumbu kripik pedas dan gurih')">Pesan</button>
+                </div>
+            </div>
+
+            <!-- MAKANAN -->
             <div class="menu-card" data-category="makanan">
-                <img src="https://images.unsplash.com/photo-1609501676725-7186f017a4b5?w=400&h=300&fit=crop" alt="Nasi Goreng" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1631708615701-2b184ef86db7?auto=format&w=800" alt="Nasi Goreng" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Makanan</span>
                     <h3>Nasi Goreng Spesial</h3>
@@ -709,7 +901,7 @@
             </div>
 
             <div class="menu-card" data-category="makanan">
-                <img src="https://images.unsplash.com/photo-1584618674565-da381dd76744?w=400&h=300&fit=crop" alt="Mie Goreng" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561fea?auto=format&w=800" alt="Mie Goreng" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Makanan</span>
                     <h3>Mie Goreng Aceh</h3>
@@ -720,7 +912,7 @@
             </div>
 
             <div class="menu-card" data-category="makanan">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Soto Ayam" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1573281499014-5bfb4456d412?auto=format&w=800" alt="Soto Ayam" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Makanan</span>
                     <h3>Soto Ayam Kuning</h3>
@@ -731,7 +923,7 @@
             </div>
 
             <div class="menu-card" data-category="makanan">
-                <img src="https://images.unsplash.com/photo-1645112411341-6c4ee32510d8?w=400&h=300&fit=crop" alt="Rendang" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1630177037292-c57b9e6b7d55?auto=format&w=800" alt="Rendang" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Makanan</span>
                     <h3>Rendang Daging</h3>
@@ -742,7 +934,7 @@
             </div>
 
             <div class="menu-card" data-category="makanan">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Gado-Gado" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&w=800" alt="Gado-Gado" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Makanan</span>
                     <h3>Gado-Gado Premium</h3>
@@ -752,9 +944,20 @@
                 </div>
             </div>
 
-            <!-- MINUMAN ITEMS -->
+            <div class="menu-card" data-category="makanan">
+                <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd87352?auto=format&w=800" alt="Sate Ayam" class="menu-image">
+                <div class="menu-content">
+                    <span class="menu-category">Makanan</span>
+                    <h3>Sate Ayam (10 tusuk)</h3>
+                    <p>Daging ayam tusuk dibakar sempurna dengan bumbu kacang</p>
+                    <div class="menu-price">Rp 40.000</div>
+                    <button class="btn-pesan" onclick="orderViaWhatsApp('Sate Ayam (10 tusuk)', 'Rp 40.000', 'Daging ayam tusuk dibakar sempurna dengan bumbu kacang')">Pesan</button>
+                </div>
+            </div>
+
+            <!-- MINUMAN -->
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1588195538326-c5b1e6f3c95c?w=400&h=300&fit=crop" alt="Es Cendol" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1490644658840-923c77e8ccd1?auto=format&w=800" alt="Es Cendol" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Es Cendol Tradisional</h3>
@@ -765,7 +968,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&h=300&fit=crop" alt="Jus Mangga" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1566395514316-3dfed2f57307?auto=format&w=800" alt="Jus Mangga" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Jus Mangga Segar</h3>
@@ -776,7 +979,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1597318972638-db7dfd92c4c0?w=400&h=300&fit=crop" alt="Teh Manis" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1500382017468-7049ffd0c87f?auto=format&w=800" alt="Teh Manis" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Teh Manis Hangat</h3>
@@ -787,7 +990,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd19c74?w=400&h=300&fit=crop" alt="Kopi Luwak" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&w=800" alt="Kopi Luwak" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Kopi Luwak Premium</h3>
@@ -798,7 +1001,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1553530666-ba2a8e36cd44?w=400&h=300&fit=crop" alt="Milkshake" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1578270841477-efc2c0e2e45a?auto=format&w=800" alt="Milkshake" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Milkshake Cokelat</h3>
@@ -809,7 +1012,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400&h=300&fit=crop" alt="Es Jeruk" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1527409335528-39b19861a509?auto=format&w=800" alt="Es Jeruk" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Es Jeruk Nipis Segar</h3>
@@ -820,7 +1023,7 @@
             </div>
 
             <div class="menu-card" data-category="minuman">
-                <img src="https://images.unsplash.com/photo-1590577331203-d6203cbcda90?w=400&h=300&fit=crop" alt="Smoothie" class="menu-image">
+                <img src="https://images.unsplash.com/photo-1505353672291-83f92c82f8e9?auto=format&w=800" alt="Smoothie" class="menu-image">
                 <div class="menu-content">
                     <span class="menu-category">Minuman</span>
                     <h3>Smoothie Strawberry</h3>
@@ -862,10 +1065,21 @@
         // HAMBURGER MENU TOGGLE
         function toggleMenu() {
             const hamburger = document.querySelector('.hamburger');
-            const menu = document.querySelector('.nav-menu');
+            const navMenu = document.querySelector('.nav-menu');
+            
             hamburger.classList.toggle('active');
-            menu.classList.toggle('active');
+            navMenu.classList.toggle('active');
         }
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
 
         // SMOOTH SCROLL FUNCTION
         function smoothScroll(event, targetId) {
@@ -877,11 +1091,6 @@
                     block: 'start'
                 });
             }
-            // Close mobile menu after clicking
-            const hamburger = document.querySelector('.hamburger');
-            const menu = document.querySelector('.nav-menu');
-            hamburger.classList.remove('active');
-            menu.classList.remove('active');
         }
 
         // FILTER MENU FUNCTION
@@ -965,24 +1174,11 @@ Terima kasih!`;
             body.classList.toggle('dark-mode');
             
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
                 btn.textContent = '☀️ Light Mode';
             } else {
-                localStorage.setItem('theme', 'light');
                 btn.textContent = '🌙 Dark Mode';
             }
         }
-
-        // LOAD SAVED THEME
-        window.addEventListener('load', () => {
-            const savedTheme = localStorage.getItem('theme');
-            const btn = document.querySelector('.theme-toggle');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                btn.textContent = '☀️ Light Mode';
-            }
-        });
     </script>
 
 </body>
